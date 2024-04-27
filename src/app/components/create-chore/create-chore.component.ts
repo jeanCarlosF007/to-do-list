@@ -1,29 +1,39 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OnInit } from '@angular/core';
-import { Observable, first, take } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { first } from 'rxjs';
+import { IChore } from 'src/app/models/chores-list.model';
 
 @Component({
   selector: 'app-create-chore',
   templateUrl: './create-chore.component.html',
   styleUrls: ['./create-chore.component.css']
 })
-export class CreateChoreComponent implements OnInit {
-  
+export class CreateChoreComponent {
+
+  apiKey = `a1623aa7aafd49449368d44fc1324461`;
+  apiUrl = `https://crudcrud.com/api/${this.apiKey}/chores`;
+
+  constructor(private http: HttpClient) { }
+
   choresForm: FormGroup = new FormGroup({
-    id: new FormControl(''),
     title: new FormControl('', [Validators.required]),
     category: new FormControl('', [Validators.required]),
     time: new FormControl(this.getTimeNow(), [Validators.required]),
   });
 
   createChore(): void {
-    const title = this.choresForm.getRawValue();
-    const category = this.choresForm.getRawValue();
-    const time = this.choresForm.getRawValue();
-    console.log(title);
-    console.log(category);
-    console.log(category);
+    const chore: IChore = this.choresForm.getRawValue();
+    this.http.post(this.apiUrl, chore)
+      .pipe(first())
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
   }
 
   getTimeNow(): string {
@@ -32,18 +42,6 @@ export class CreateChoreComponent implements OnInit {
     const minutes = time.getMinutes();
     const convertedTime = `${hour}:${minutes}`;
     return convertedTime;
-  }
-
-  ngOnInit(): void {
-    this.titleFieldTest();
-  }
-
-  private titleFieldTest(): void {
-    console.log(this.choresForm.controls['title'].valueChanges.subscribe({
-      next: (res) => {
-        console.log(res)
-      }
-    }));
   }
 
 }

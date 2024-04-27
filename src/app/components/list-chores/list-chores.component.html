@@ -15,40 +15,53 @@
                 <th scope="col">Ações</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let chore of chores">
               <tr>
-                <th scope="row">1</th>
-                <td>Ir à Academia</td>
-                <td>Saúde e esporte</td>
+                <th scope="row">{{chore.time}}</th>
+                <td>{{chore.title}}</td>
+                <td>{{chore.category}}</td>
                 <td>
-                  <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                    class="btn btn-warning ">Editar</button>
-                  <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                    class="btn btn-danger ms-1">Deletar</button>
+                  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    (click)="getDataToEditForm(chore._id)">Editar</button>
+                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-danger ms-1"
+                    (click)="deleteChore(chore._id)">Deletar</button>
                 </td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Limpar a casa</td>
-                <td>Organização</td>
-                <td>
-                  <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                    class="btn btn-warning ">Editar</button>
-                  <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                    class="btn btn-danger ms-1">Deletar</button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Aula ADA</td>
-                <td>Estudos</td>
-                <td>
-                  <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                    class="btn btn-warning ">Editar</button>
-                  <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                    class="btn btn-danger ms-1">Deletar</button>
-                </td>
-              </tr>
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Altere abaixo sua tarefa:</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form [formGroup]="editionForm">
+                          <div class="mb-3">
+                            <label for="chore-title" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="chore-title"
+                              placeholder="Digite o título da tarefa" formControlName="title">
+                          </div>
+                          <div class="mb-3">
+                            <label for="chore-category" class="form-label">Categoria</label>
+                            <input type="text" class="form-control" id="chore-category"
+                              placeholder="Digite a categoria da tarefa" formControlName="category">
+                          </div>
+                          <div class="mb-3">
+                            <label for="chore-time" class="form-label">Hora</label>
+                            <input type="time" class="form-control" id="chore-time" formControlName="time">
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" type="submit" class="btn btn-success"
+                          (click)="updateChore(chore._id)">Salvar alterações</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- FIM DO MODAL -->
             </tbody>
           </table>
 
