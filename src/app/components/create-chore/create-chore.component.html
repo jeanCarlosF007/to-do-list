@@ -3,18 +3,18 @@
     <h5 class="card-header d-flex justify-content-center fs-1 mb-3">Gerencie seu dia</h5>
     <div class="card-body">
 
-      <form>
+      <form [formGroup]="choresForm" (ngSubmit)="createChore()">
         <div class="mb-3">
           <label for="chore-title" class="form-label">Título</label>
-          <input type="text" class="form-control" id="chore-title" placeholder="Digite o título da tarefa">
+          <input type="text" class="form-control" id="chore-title" placeholder="Digite o título da tarefa" formControlName="title">
         </div>
         <div class="mb-3">
           <label for="chore-category" class="form-label">Categoria</label>
-          <input type="text" class="form-control" id="chore-category" placeholder="Digite a categoria da tarefa">
+          <input type="text" class="form-control" id="chore-category" placeholder="Digite a categoria da tarefa" formControlName="category">
         </div>
         <div class="mb-3">
           <label for="chore-time" class="form-label">Hora</label>
-          <input type="time" class="form-control" id="chore-time">
+          <input type="time" class="form-control" id="chore-time" formControlName="time">
         </div>
         <button class="btn btn-success">Adicionar tarefa</button>
       </form>
