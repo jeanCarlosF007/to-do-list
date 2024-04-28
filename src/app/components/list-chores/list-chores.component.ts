@@ -11,7 +11,7 @@ import { IChore } from 'src/app/models/chores-list.model';
 })
 export class ListChoresComponent implements OnInit {
 
-  apiKey = `a1623aa7aafd49449368d44fc1324461`;
+  apiKey = `78adf76c3d8542de941b5538c527a637`;
   apiUrl = `https://crudcrud.com/api/${this.apiKey}/chores`;
 
   constructor(private http: HttpClient) { }
@@ -52,30 +52,33 @@ export class ListChoresComponent implements OnInit {
     time: new FormControl('')
   });
 
+  actualId: string = '';
+
   getDataToEditForm(id: string) {
     this.http.get<IChore>(`${this.apiUrl}/${id}`)
       .pipe(first())
       .subscribe({
         next: (res) => {
           const chore = {
-            _id: res._id,
+            _id: id,
             title: res.title,
             category: res.category,
             time: res.time
           };
           this.editionForm.patchValue(chore);
+          this.actualId = id;
         },
         error: (err) => {
           console.log(err);
         }
       })
-    const chore: IChore = this.editionForm.getRawValue();
-    console.log(chore._id)
+    // const chore: IChore = this.editionForm.getRawValue();
+    // console.log(chore._id)
   }
 
-  updateChore(id: string): void {
+  updateChore(): void {
     const chore: IChore = this.editionForm.getRawValue();
-    this.http.put(`${this.apiUrl}/${id}`, chore)
+    this.http.put(`${this.apiUrl}/${this.actualId}`, chore)
       .pipe(first())
       .subscribe({
         next: (response) => {
@@ -89,7 +92,7 @@ export class ListChoresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getChores();
+    this.getChores();
   }
 
 }

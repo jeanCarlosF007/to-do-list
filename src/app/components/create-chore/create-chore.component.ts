@@ -11,7 +11,7 @@ import { IChore } from 'src/app/models/chores-list.model';
 })
 export class CreateChoreComponent {
 
-  apiKey = `a1623aa7aafd49449368d44fc1324461`;
+  apiKey = `78adf76c3d8542de941b5538c527a637`;
   apiUrl = `https://crudcrud.com/api/${this.apiKey}/chores`;
 
   constructor(private http: HttpClient) { }
@@ -34,6 +34,7 @@ export class CreateChoreComponent {
           console.log(err);
         }
       });
+    alert("Tarefa adicionada com sucesso!");
   }
 
   getTimeNow(): string {
