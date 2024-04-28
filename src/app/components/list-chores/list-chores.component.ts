@@ -72,8 +72,6 @@ export class ListChoresComponent implements OnInit {
           console.log(err);
         }
       })
-    // const chore: IChore = this.editionForm.getRawValue();
-    // console.log(chore._id)
   }
 
   updateChore(): void {
@@ -82,13 +80,14 @@ export class ListChoresComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: (response) => {
-          console.log(response);
+          alert("Tarefa atualizada com sucesso!");
+          this.getChores();
         },
         error: (err) => {
           console.log(err);
         }
       });
-    alert("Tarefa atualizada com sucesso!");
+
   }
 
   ngOnInit(): void {
