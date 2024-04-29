@@ -6,17 +6,17 @@
       <form [formGroup]="choresForm" (ngSubmit)="createChore()">
         <div class="mb-3">
           <label for="chore-title" class="form-label">Título</label>
-          <input type="text" class="form-control" id="chore-title" placeholder="Digite o título da tarefa" formControlName="title">
+          <input type="text" class="form-control" id="chore-title" formControlName="title">
         </div>
         <div class="mb-3">
           <label for="chore-category" class="form-label">Categoria</label>
-          <input type="text" class="form-control" id="chore-category" placeholder="Digite a categoria da tarefa" formControlName="category">
+          <input type="text" class="form-control" id="chore-category" formControlName="category">
         </div>
         <div class="mb-3">
           <label for="chore-time" class="form-label">Hora</label>
           <input type="time" class="form-control" id="chore-time" formControlName="time">
         </div>
-        <button class="btn btn-success">Adicionar tarefa</button>
+        <button type="submit" class="btn btn-success">Adicionar tarefa</button>
       </form>
 
     </div>

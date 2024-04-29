@@ -6,12 +6,14 @@ import { CreateChoreComponent } from './components/create-chore/create-chore.com
 import { ListChoresComponent } from './components/list-chores/list-chores.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ClockComponent } from './components/clock/clock.component' 
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateChoreComponent,
     ListChoresComponent,
+    ClockComponent
   ],
   imports: [
     BrowserModule,

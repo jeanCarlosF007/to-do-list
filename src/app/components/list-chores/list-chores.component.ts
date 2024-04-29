@@ -11,7 +11,7 @@ import { IChore } from 'src/app/models/chores-list.model';
 })
 export class ListChoresComponent implements OnInit {
 
-  apiKey = `78adf76c3d8542de941b5538c527a637`;
+  apiKey = `323b9b41cd8d4163936d30eb5ec5586a`;
   apiUrl = `https://crudcrud.com/api/${this.apiKey}/chores`;
 
   constructor(private http: HttpClient) { }
@@ -24,7 +24,6 @@ export class ListChoresComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.chores = res;
-          console.log(res);
         },
         error: (err) => { console.log(err); },
         complete: () => { }

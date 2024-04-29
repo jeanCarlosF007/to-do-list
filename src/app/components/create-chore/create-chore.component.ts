@@ -12,16 +12,23 @@ import { Router } from '@angular/router';
 })
 export class CreateChoreComponent {
 
-  apiKey = `78adf76c3d8542de941b5538c527a637`;
+  apiKey = `323b9b41cd8d4163936d30eb5ec5586a`;
   apiUrl = `https://crudcrud.com/api/${this.apiKey}/chores`;
+  choresForm!: FormGroup;
 
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(private http: HttpClient) { }
 
-  choresForm: FormGroup = new FormGroup({
-    title: new FormControl('', [Validators.required]),
-    category: new FormControl('', [Validators.required]),
-    time: new FormControl(this.getTimeNow(), [Validators.required]),
-  });
+  ngOnInit():void {
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
+      this.choresForm = new FormGroup({
+        title: new FormControl('', [Validators.required, Validators.minLength(4)]),
+        category: new FormControl('', [Validators.required]),
+        time: new FormControl(this.getTimeNow(), [Validators.required]),
+      });
+  }
 
   reloadPage(): void {
     window.location.reload();
@@ -29,18 +36,23 @@ export class CreateChoreComponent {
 
   createChore(): void {
     const chore: IChore = this.choresForm.getRawValue();
-    this.http.post(this.apiUrl, chore)
-      .pipe(first())
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-          alert("Tarefa adicionada com sucesso!");
-          this.reloadPage();
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      });
+    if (this.choresForm.invalid) {
+      alert("Todos os campos devem estar preenchidos e o campo 'título' deve conter ao menos 4 caracteres!");
+      return;
+    } else {
+      this.http.post(this.apiUrl, chore)
+        .pipe(first())
+        .subscribe({
+          next: (response) => {
+            console.log(response);
+            alert("Tarefa adicionada com sucesso!");
+            this.reloadPage();
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+    }
   }
 
   getTimeNow(): string {
