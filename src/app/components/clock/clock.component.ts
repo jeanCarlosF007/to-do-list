@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 export class ClockComponent {
 
   currentTime: string = '';
-  currentDate = new Date();
   intervalId: any;
 
   ngOnInit():void {
@@ -22,11 +21,12 @@ export class ClockComponent {
   showTime(): void {
     this.intervalId = setInterval(() => {
       this.currentTime = `${this.getWeekDay()}, ${this.getMonthDate()}, ${this.getHours()}`;
-    }, 1000);
+    }, 5000);
   }
 
   getWeekDay(): string {
-    const dayOfWeek = this.currentDate.getDay();
+    const currentDate = new Date();
+    const dayOfWeek = currentDate.getDay();
     switch (dayOfWeek) {
       case 0:
         return 'Domingo';
@@ -48,9 +48,10 @@ export class ClockComponent {
   }
 
   getMonthDate(): string {
-    const currentDay = this.currentDate.getDate();
-    const currentMonth = this.currentDate.getMonth();
-    const currentYear = this.currentDate.getFullYear();
+    const currentDate = new Date();
+    const currentDay = currentDate.getDate();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
 
     switch (currentMonth) {
       case 0:
@@ -83,8 +84,9 @@ export class ClockComponent {
   }
 
   getHours(): string {
-    const hours = ('0' + this.currentDate.getHours()).toString().slice(-2);
-    const minutes = ('0' + this.currentDate.getMinutes()).toString().slice(-2);
+    const currentDate = new Date();
+    const hours = ('0' + currentDate.getHours()).toString().slice(-2);
+    const minutes = ('0' + currentDate.getMinutes()).toString().slice(-2);
     return `${hours}:${minutes}`;
   }
 
