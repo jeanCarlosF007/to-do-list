@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class CreateChoreComponent {
 
-  apiKey = `323b9b41cd8d4163936d30eb5ec5586a`;
+  apiKey = `c2e48408f09849a09cf8ef168fb23ba8`;
   apiUrl = `https://crudcrud.com/api/${this.apiKey}/chores`;
   choresForm!: FormGroup;
 

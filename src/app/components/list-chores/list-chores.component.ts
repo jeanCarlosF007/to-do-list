@@ -11,12 +11,16 @@ import { IChore } from 'src/app/models/chores-list.model';
 })
 export class ListChoresComponent implements OnInit {
 
-  apiKey = `323b9b41cd8d4163936d30eb5ec5586a`;
+  apiKey = `c2e48408f09849a09cf8ef168fb23ba8`;
   apiUrl = `https://crudcrud.com/api/${this.apiKey}/chores`;
 
   constructor(private http: HttpClient) { }
 
   chores?: IChore[];
+
+  ngOnInit(): void {
+    this.getChores();
+  }
 
   private getChores(): void {
     this.http.get<IChore[]>(this.apiUrl)
@@ -87,10 +91,6 @@ export class ListChoresComponent implements OnInit {
         }
       });
 
-  }
-
-  ngOnInit(): void {
-    this.getChores();
   }
 
 }
